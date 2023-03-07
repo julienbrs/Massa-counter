@@ -4,7 +4,7 @@ image: node:latest
 # Specify paths to cache between pipeline runs
 cache:
   paths:
-    - ~/.npm # NPM cache
+    - backend/node_modules/ # NPM cache
 
 # Define the different stages of the pipeline
 stages:
@@ -18,53 +18,53 @@ stages:
 install-deps:
   stage: init
   script:
-    - npm ci # Use `npm ci` instead of `npm i` for faster and more reliable installs
+    - cd backend && npm ci # Use `npm ci` instead of `npm i` for faster and more reliable installs
   artifacts:
     paths:
-      - node_modules/
+      - backend/node_modules/
 
 # Run prettier and linting in format stage
 prettier:
   stage: format
   script:
-    - npm run prettier > prettier_report.txt || true
+    - cd backend && npm run prettier > prettier_report.txt || true
   artifacts:
     paths:
-      - prettier_report.txt
+      - backend/prettier_report.txt
 lint-ts:
   stage: format
   script:
-    - npm run lint > lint_ts_report.txt || true
+    - cd backend && npm run lint > lint_ts_report.txt || true
   artifacts:
     paths:
-      - lint_ts_report.txt
+      - backend/lint_ts_report.txt
 
 # Build the SCs in the build stage
 build:
   stage: build
   script:
-    - npm run build
+    - cd backend && npm run build
   artifacts:
     paths:
-      - build
+      - backend/build
 
 # Run tests in the test stage
 test:
   stage: test
   script:
-    - npm  run test > test_report.txt
+    - cd backend && npm run test > test_report.txt
   dependencies:
     - install-deps # Make sure dependencies are installed before running the tests
   artifacts:
     paths:
-      - test_report.txt
+      - backend/test_report.txt
 
 # Generate badges in the deploy stage
 badges:
   stage: badge
   script:
-    - scripts/gen_badges.sh
+    - cd backend && scripts/gen_badges.sh
   artifacts:
     paths:
-      - badge_*.svg
+      - backend/badge_*.svg
   when: always # Always run the job, even if previous jobs fail
