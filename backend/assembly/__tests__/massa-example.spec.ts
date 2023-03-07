@@ -63,7 +63,6 @@ describe('increment fonction', () => {
   //   expect(triggerValue()).toBe('0');
   // });
 
-
   test('Should increment to 1, then 2 and equals 3', () => {
     const arg1 = new Args().add<u32>(1);
     const arg2 = new Args().add<u32>(2);
@@ -87,7 +86,6 @@ describe('Smart contract unit tests', () => {
     const result: string = triggerValue();
     expect(result).toBe('0');
   });
-
 
   test('Should return the counter value after an increment', () => {
     const args = new Args().add<u32>(10);
