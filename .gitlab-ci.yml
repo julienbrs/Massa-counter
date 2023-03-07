@@ -1,0 +1,70 @@
+# Specify the base Docker image for the pipeline
+image: node:latest
+
+# Specify paths to cache between pipeline runs
+cache:
+  paths:
+    - ~/.npm # NPM cache
+
+# Define the different stages of the pipeline
+stages:
+  - init
+  - format
+  - build
+  - test
+  - badge
+
+# Install dependencies in the init stage
+install-deps:
+  stage: init
+  script:
+    - npm ci # Use `npm ci` instead of `npm i` for faster and more reliable installs
+  artifacts:
+    paths:
+      - node_modules/
+
+# Run prettier and linting in format stage
+prettier:
+  stage: format
+  script:
+    - npm run prettier > prettier_report.txt || true
+  artifacts:
+    paths:
+      - prettier_report.txt
+lint-ts:
+  stage: format
+  script:
+    - npm run lint > lint_ts_report.txt || true
+  artifacts:
+    paths:
+      - lint_ts_report.txt
+
+# Build the SCs in the build stage
+build:
+  stage: build
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - build
+
+# Run tests in the test stage
+test:
+  stage: test
+  script:
+    - npm  run test > test_report.txt
+  dependencies:
+    - install-deps # Make sure dependencies are installed before running the tests
+  artifacts:
+    paths:
+      - test_report.txt
+
+# Generate badges in the deploy stage
+badges:
+  stage: badge
+  script:
+    - scripts/gen_badges.sh
+  artifacts:
+    paths:
+      - badge_*.svg
+  when: always # Always run the job, even if previous jobs fail
