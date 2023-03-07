@@ -41,5 +41,8 @@
     "prettier": "@massalabs/prettier-config-as",
     "engines": {
         "node": ">=16"
+    },
+    "dependencies": {
+        "generated-badges": "^1.0.10"
     }
 }
