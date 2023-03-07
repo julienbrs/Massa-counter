@@ -24,19 +24,20 @@ export function increment(_args: StaticArray<u8>): void {
   );
 }
 
-export function triggerValue(): StaticArray<u8> {
+export function triggerValue(): string {
+
   const counterArgs = new Args().add('counter');
   const counterValue: u32 = fromBytes<u32>(
     Storage.get(stringToBytes('counter')),
   );
   /* Choix d'implémentation à expliquer */
   if (!Storage.has(counterArgs)) {
-    Storage.set(stringToBytes('counter'), new Args().add<u32>(0).serialize());
+    Storage.set(counterArgs, new Args().add<u32>(0));
   }
   // else if (storeValue.isErr()) {
   //   // initialiser à 0 ou retourner une erreur ?
   // }
-  const message: u32 = counterValue;
-  generateEvent(message.toString());
-  return toBytes(message);
+  const message: string = counterValue.toString();
+  generateEvent(message);
+  return message;
 }
