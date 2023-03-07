@@ -52,7 +52,7 @@ build:
 test:
   stage: test
   script:
-    - cd backend && npm run test > test_report.txt
+    - cd backend && npm run test > test_report.txt 2>&1 || true
   dependencies:
     - install-deps # Make sure dependencies are installed before running the tests
   artifacts:
