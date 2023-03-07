@@ -1,32 +1,24 @@
 // The entry file of your WebAssembly module.
-import { callerHasWriteAccess, generateEvent } from '@massalabs/massa-as-sdk';
-import { Args, stringToBytes } from '@massalabs/as-types';
+import { Storage } from '@massalabs/massa-as-sdk';
+import { Args, stringToBytes, fromBytes } from '@massalabs/as-types';
 
-/**
- * This function is meant to be called only one time: when the contract is deployed.
- *
- * @param binaryArgs - Arguments serialized with Args
- */
-export function constructor(binaryArgs: StaticArray<u8>): StaticArray<u8> {
-  // This line is important. It ensures that this function can't be called in the future.
-  // If you remove this check, someone could call your constructor function and reset your smart contract.
-  if (!callerHasWriteAccess()) {
-    return [];
+export function increment(_args: StaticArray<u8>): void {
+  const argsObject = new Args(_args); // Camel or snake case ?
+
+  const counterArgs = new Args().add('counter');
+  if (!Storage.has(counterArgs)) {
+    Storage.set(stringToBytes('counter'), new Args().add<u32>(0).serialize());
   }
-  const argsDeser = new Args(binaryArgs);
-  const name = argsDeser
-    .nextString()
-    .expect('Name argument is missing or invalid');
-  generateEvent(`Constructor called with name ${name}`);
-  return [];
-}
+  const counterValue: u32 = fromBytes<u32>(
+    Storage.get(stringToBytes('counter')),
+  );
+  const toIncrement: u32 = argsObject
+    .nextU32()
+    .expect('Argument value is missing or invalid');
+  const newValue = add(counterValue, toIncrement);
 
-/**
- * @param _ - not used
- * @returns the emitted event serialized in bytes
- */
-export function event(_: StaticArray<u8>): StaticArray<u8> {
-  const message = "I'm an event!";
-  generateEvent(message);
-  return stringToBytes(message);
+  Storage.set(
+    stringToBytes('counter'),
+    new Args().add<u32>(newValue).serialize(),
+  );
 }
