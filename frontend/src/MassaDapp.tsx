@@ -11,13 +11,14 @@ import { useEffect, useState } from 'react';
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 const MAX_LOOP = 50;
 
+// Wallet for testing purpose only
 const baseAccount = {
-    address: "",
-    secretKey: "",
-    publicKey: "",
+    address: 'AU1UdCSGNFtmC6NH1JiDcVPvwq1PdvB8oHoadjed1wfNPS2kd9pE',
+    secretKey: 'S12WcJfZtZkCEMwi6yTptzDS2bZWR9Lp3PMxuGea2EuKypfxvMeo',
+    publicKey: 'P1cttswtjnbTuAUYDDeKyFi32pbVFt26BZPK3Gm7nAohsqeaQgF',
 } as IAccount;
 
-const sc_addr: string = 'AS12nHeu7p24Mb1CitmmYEFomXavn7RCHWb6vwd4U5nVAT8V3LLCf';
+const sc_addr = 'AS12e39fhameSakSuBwpjajBEXGUK8UeLwcxV1wVPhhBNiwxxgCz2';
 
 export default function Counter() {
     const [valueInput, setValueInput] = useState<string>('');
@@ -30,7 +31,7 @@ export default function Counter() {
             const newClient = await ClientFactory.createDefaultClient(
                 DefaultProviderUrls.TESTNET,
                 false,
-                baseAccount
+                baseAccount,
             );
             setClient(newClient);
         };
@@ -55,7 +56,7 @@ export default function Counter() {
                 continue;
             }
             if (event != undefined && event[0]) {
-                console.log("event caught:", event);
+                console.log('event caught:', event);
                 return event[0].data;
             }
             tick++;
@@ -98,31 +99,39 @@ export default function Counter() {
     return (
         <div id="box-wrapper">
             <div className="box">
-            <input type="text" value={valueInput} onChange={(e) => setValueInput(e.target.value)} placeholder='Type u32 as increment' />
-            <button onClick={async () => {
-                if (valueInput === '' || !client){
-                    alert("Please enter a correct value");
-                    return;
-                }
-                await handleIncrClick(parseInt(valueInput))}}>Increment</button>
-            {client ? (
+                <input
+                    type="text"
+                    value={valueInput}
+                    onChange={(e) => setValueInput(e.target.value)}
+                    placeholder="Type u32 as increment"
+                />
                 <button
                     onClick={async () => {
-                        await triggerValue();
+                        if (valueInput === '' || !client) {
+                            alert('Please enter a correct value');
+                            return;
+                        }
+                        await handleIncrClick(parseInt(valueInput, 10));
                     }}
                 >
-                    TriggerValue
+                    Increment
                 </button>
-            ) : (
-                <div>Client not connected</div>
-            )}
-
+                {client ? (
+                    <button
+                        onClick={async () => {
+                            await triggerValue();
+                        }}
+                    >
+                        TriggerValue
+                    </button>
+                ) : (
+                    <div>Client not connected</div>
+                )}
             </div>
 
             <div id="right-box" className="box">
-            Counter Value: {triggerResult ? triggerResult: "?"}
+                Counter Value: {triggerResult ? triggerResult : '?'}
             </div>
         </div>
     );
 }
-
