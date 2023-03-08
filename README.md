@@ -4,8 +4,10 @@
 This is a monorepo for a simple dApp, which is an implementation of a counter using the Massa environment.
 
 <p align="center">
-    <img src="frontend/pics/screenshot.png" alt="dApp Screenshot" width="50%">
+  <a href="https://gitlab.com/julienbrs/massa-my-sc/">
+    <img src="frontend/pics/screenshot.png" alt="dApp Screenshot" width="50%"/></a>
 </p>
+
 
 ## Table of Contents
 
@@ -69,5 +71,7 @@ Please refer to the documentation for more information here https://docs.massa.n
 This project is licensed under the [Unlicense](http://unlicense.org/) or the [Creative Commons CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/) license. This means that anyone can use this code for any purpose without any restrictions.
 
 <p align="center">
-    <img src="frontend/pics/massa_logo.jpg" alt="Massa Logo" width="15%">
+  <a href="https://massa.net/">
+    <img src="frontend/pics/massa_logo.jpg" alt="Massa Logo" width="15%"/></a>
 </p>
+
