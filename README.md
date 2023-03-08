@@ -1,92 +1,76 @@
-# Massa-my-SC
+# Massa-test
 
+[![Unit Test Status](https://gitlab.com/%{project_path}/-/jobs/artifacts/%{commit_sha}/raw/backend/badge_unit_test.svg?job=badges)](https://gitlab.com/%{project_path}/-/jobs/artifacts/%{commit_sha}/raw/backend/test_report.txt?job=test)
+[![ESLint Status](https://gitlab.com/%{project_path}/-/jobs/artifacts/%{commit_sha}/raw/backend/badge_eslint.svg?job=badges)](https://gitlab.com/%{project_path}/-/jobs/artifacts/%{commit_sha}/raw/backend/lint_ts_report.txt?job=lint-ts)
+[![Prettier Status](https://gitlab.com/%{project_path}/-/jobs/artifacts/%{commit_sha}/raw/backend/badge_prettier.svg?job=badges)](https://gitlab.com/%{project_path}/-/jobs/artifacts/%{commit_sha}/raw/backend/prettier_report.txt?job=prettier)
 
+This is a monorepo for a simple dApp, which is an implementation of a counter using the Massa environment.
+
+<p align="center">
+    <img src="frontend/pics/screenshot.png" alt="dApp Screenshot" width="50%">
+</p>
+
+## Table of Contents
+
+- [Massa-test](#massa-test)
+  - [Table of Contents](#table-of-contents)
+  - [Getting started](#getting-started)
+    - [Backend](#backend)
+    - [Frontend](#frontend)
+  - [Usage](#usage)
+  - [Stack used](#stack-used)
+  - [License](#license)
 
 ## Getting started
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+### Backend
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+To set up the backend, please do the following steps:
 
-## Add your files
+- Go to the `backend` folder: `cd backend`
+- Install dependencies: `npm install`
+- Compile the smart contract: `npm run build`
+- Deploy the smart contract: `npm run deploy`
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+### Frontend
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/julienbrs/massa-my-sc.git
-git branch -M main
-git push -uf origin main
-```
+To set up the frontend, please do the following steps:
 
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://gitlab.com/julienbrs/massa-my-sc/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+- Go to the `frontend` folder: `cd frontend`
+- Install dependencies: `npm install`
+- Start the frontend: `npm start`
 
 ## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+Once you have set up the backend and frontend, you can use the dApp to increment and trigger the value of the counter stored on-chain.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+1. Open the frontend by navigating to http://localhost:3000/ in your web browser.
+2. In the frontend, you will see the current value of the counter displayed after calling the `TriggerValue` function of the smart contract
+3. To increment the counter, enter an unsigned integer into the input field and click the `Increment` button. The counter will be incremented by the specified value and the new value will be displayed.
+4. To trigger the current value of the counter, click the `TriggerValue` button. The current value of the counter will be displayed in the console.
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+## Stack used
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+[massa-web3](https://github.com/massalabs/massa-web3) is a TypeScript library that allow you to interact with the Massa blockchain through a local or remote Massa node.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+[create-react-app-massa](https://github.com/massalabs/create-react-app-massa) is a minimal React template made for our massa-web3 library.
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+[massa-sc-examples](https://github.com/massalabs/massa-sc-examples) is a collection of smart contracts examples.
+
+[massa-sc-toolkit](https://github.com/massalabs/massa-sc-toolkit/) is a toolkit meant to facilitate smart contract development, testing and deployment.
+
+[massa-sc-tester](https://github.com/massalabs/massa-sc-tester) is a minimal testing environment made for running massa smart contracts locally.
+
+[massa-sc-project-initializer](https://docs.massa.net/en/latest/web3-dev/smart-contracts/getting-started.html#sc-getting-started)is a tool that creates a boilerplate smart-contract project. To create a smart-contract project, invoke the initializer by running:
+
+`npx clear-npx-cache && npx @massalabs/sc-project-initializer@dev init my-sc && cd my-sc`
+
+Please refer to the documentation for more information here https://docs.massa.net/
 
 ## License
-For open source projects, say how it is licensed.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+This project is licensed under the [Unlicense](http://unlicense.org/) or the [Creative Commons CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/) license. This means that anyone can use this code for any purpose without any restrictions.
+
+<p align="center">
+    <img src="frontend/pics/massa_logo.jpg" alt="Massa Logo" width="15%">
+</p>
