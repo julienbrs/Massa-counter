@@ -1,4 +1,4 @@
-import { stringToBytes, fromBytes, Args } from '@massalabs/as-types';
+import { Args } from '@massalabs/as-types';
 import { Storage, resetStorage } from '@massalabs/massa-as-sdk';
 import { increment, triggerValue } from '../contracts/main';
 
@@ -10,9 +10,7 @@ describe('increment fonction', () => {
   test('Should init to 0', () => {
     const args = new Args().add<u32>(0);
     increment(args.serialize());
-    const counterValue: u32 = fromBytes<u32>(
-      Storage.get(stringToBytes('counter')),
-    );
+    const counterValue: u32 = Storage.get(new Args().add('counter')).nextU32().unwrap();
     const expectedValue: u32 = 0;
     expect(counterValue).toBe(expectedValue);
   });
@@ -20,9 +18,7 @@ describe('increment fonction', () => {
   test('Should increment by 1', () => {
     const args = new Args().add<u32>(1);
     increment(args.serialize());
-    const counterValue: u32 = fromBytes<u32>(
-      Storage.get(stringToBytes('counter')),
-    );
+    const counterValue: u32 = Storage.get(new Args().add('counter')).nextU32().unwrap();
     const expectedValue: u32 = 1;
     expect(counterValue).toBe(expectedValue);
   });
@@ -31,9 +27,8 @@ describe('increment fonction', () => {
     const args = new Args().add<u32>(0);
     increment(args.serialize());
 
-    const counterValue: u32 = fromBytes<u32>(
-      Storage.get(stringToBytes('counter')),
-    );
+    const counterValue: u32 = Storage.get(new Args().add('counter')).nextU32().unwrap();
+
     const expectedValue: u32 = 0;
     expect(counterValue).toBe(expectedValue);
   });
@@ -43,9 +38,8 @@ describe('increment fonction', () => {
     const args1 = new Args().add<u32>(1);
     increment(argsMAX.serialize());
     increment(args1.serialize());
-    const counterValue: u32 = fromBytes<u32>(
-      Storage.get(stringToBytes('counter')),
-    );
+    const counterValue: u32 = Storage.get(new Args().add('counter')).nextU32().unwrap();
+
     const expectedValue: u32 = 0;
     expect(counterValue).toBe(expectedValue);
   });
@@ -59,8 +53,9 @@ describe('increment fonction', () => {
 
   // test('Should crash if argument is not valid (negative integer)', () => {
   //   const args = new Args().add<u32>(-2);
-  //   increment(args.serialize());
-  //   expect(triggerValue()).toBe('0');
+  //   expect(() => {
+  //     increment(args.serialize());
+  //   }).toThrow('Argument value is missing or invalid');
   // });
 
   test('Should increment to 1, then 2 and equals 3', () => {
@@ -69,9 +64,8 @@ describe('increment fonction', () => {
 
     increment(arg1.serialize());
     increment(arg2.serialize());
-    const counterValue: u32 = fromBytes<u32>(
-      Storage.get(stringToBytes('counter')),
-    );
+    const counterValue: u32 = Storage.get(new Args().add('counter')).nextU32().unwrap();
+
     const expectedValue: u32 = 3;
     expect(counterValue).toBe(expectedValue);
   });
@@ -83,15 +77,16 @@ describe('Smart contract unit tests', () => {
   });
 
   test('Should return "0" if counter is not initialized', () => {
-    const result: string = triggerValue();
-    expect(result).toBe('0');
+    const counterValue = triggerValue(new Args().serialize());
+    expect(counterValue).toBe(0);
   });
 
   test('Should return the counter value after an increment', () => {
     const args = new Args().add<u32>(10);
     increment(args.serialize());
-    const result: string = triggerValue();
-    expect(result).toBe('10');
+    const counterValue = triggerValue(new Args().serialize());
+    expect(counterValue).toBe(10);
+
   });
 
   test('Should return the updated counter value after multiple increments', () => {
@@ -99,7 +94,7 @@ describe('Smart contract unit tests', () => {
     const args2 = new Args().add<u32>(20);
     increment(args1.serialize());
     increment(args2.serialize());
-    const result: string = triggerValue();
-    expect(result).toBe('30');
+    const counterValue = triggerValue(new Args().serialize());
+    expect(counterValue).toBe(30);
   });
 });
