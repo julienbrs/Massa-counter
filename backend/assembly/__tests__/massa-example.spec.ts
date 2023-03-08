@@ -10,7 +10,9 @@ describe('increment fonction', () => {
   test('Should init to 0', () => {
     const args = new Args().add<u32>(0);
     increment(args.serialize());
-    const counterValue: u32 = Storage.get(new Args().add('counter')).nextU32().unwrap();
+    const counterValue: u32 = Storage.get(new Args().add('counter'))
+      .nextU32()
+      .unwrap();
     const expectedValue: u32 = 0;
     expect(counterValue).toBe(expectedValue);
   });
@@ -18,7 +20,9 @@ describe('increment fonction', () => {
   test('Should increment by 1', () => {
     const args = new Args().add<u32>(1);
     increment(args.serialize());
-    const counterValue: u32 = Storage.get(new Args().add('counter')).nextU32().unwrap();
+    const counterValue: u32 = Storage.get(new Args().add('counter'))
+      .nextU32()
+      .unwrap();
     const expectedValue: u32 = 1;
     expect(counterValue).toBe(expectedValue);
   });
@@ -27,7 +31,9 @@ describe('increment fonction', () => {
     const args = new Args().add<u32>(0);
     increment(args.serialize());
 
-    const counterValue: u32 = Storage.get(new Args().add('counter')).nextU32().unwrap();
+    const counterValue: u32 = Storage.get(new Args().add('counter'))
+      .nextU32()
+      .unwrap();
 
     const expectedValue: u32 = 0;
     expect(counterValue).toBe(expectedValue);
@@ -38,7 +44,9 @@ describe('increment fonction', () => {
     const args1 = new Args().add<u32>(1);
     increment(argsMAX.serialize());
     increment(args1.serialize());
-    const counterValue: u32 = Storage.get(new Args().add('counter')).nextU32().unwrap();
+    const counterValue: u32 = Storage.get(new Args().add('counter'))
+      .nextU32()
+      .unwrap();
 
     const expectedValue: u32 = 0;
     expect(counterValue).toBe(expectedValue);
@@ -64,7 +72,9 @@ describe('increment fonction', () => {
 
     increment(arg1.serialize());
     increment(arg2.serialize());
-    const counterValue: u32 = Storage.get(new Args().add('counter')).nextU32().unwrap();
+    const counterValue: u32 = Storage.get(new Args().add('counter'))
+      .nextU32()
+      .unwrap();
 
     const expectedValue: u32 = 3;
     expect(counterValue).toBe(expectedValue);
@@ -86,7 +96,6 @@ describe('Smart contract unit tests', () => {
     increment(args.serialize());
     const counterValue = triggerValue(new Args().serialize());
     expect(counterValue).toBe(10);
-
   });
 
   test('Should return the updated counter value after multiple increments', () => {

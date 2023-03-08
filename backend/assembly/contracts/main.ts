@@ -1,6 +1,6 @@
 // The entry file of your WebAssembly module.
 import { Storage, generateEvent } from '@massalabs/massa-as-sdk';
-import { Args, stringToBytes, fromBytes } from '@massalabs/as-types';
+import { Args } from '@massalabs/as-types';
 
 /**
  * Increments the counter value in storage by the given amount.
@@ -30,7 +30,7 @@ export function increment(_args: StaticArray<u8>): void {
  *
  * @returns The current value of the counter as a string.
  */
-export function triggerValue(args: StaticArray<u8>): u32 {
+export function triggerValue(_: StaticArray<u8>): u32 {
   const counterArgs: Args = new Args().add('counter');
   const counterValueRes = Storage.get(counterArgs).nextU32();
 

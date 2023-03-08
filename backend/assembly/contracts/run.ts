@@ -1,7 +1,6 @@
 import { Address, call, callerHasWriteAccess } from '@massalabs/massa-as-sdk';
 import { Args } from '@massalabs/as-types';
 
-
 /**
  * This function is meant to be called only one time: when the contract is deployed.
  */
