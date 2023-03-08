@@ -5,7 +5,7 @@ This is a monorepo for a simple dApp, which is an implementation of a counter us
 
 <p align="center">
   <a href="https://gitlab.com/julienbrs/massa-my-sc/">
-    <img src="frontend/pics/screenshot.png" alt="dApp Screenshot" width="50%"/></a>
+    <img src="frontend/pics/screenshot.png" alt="dApp Screenshot"/></a>
 </p>
 
 
