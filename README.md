@@ -1,8 +1,5 @@
 # Massa-test
 
-[![Unit Test Status](https://gitlab.com/%{project_path}/-/jobs/artifacts/%{commit_sha}/raw/backend/badge_unit_test.svg?job=badges)](https://gitlab.com/%{project_path}/-/jobs/artifacts/%{commit_sha}/raw/backend/test_report.txt?job=test)
-[![ESLint Status](https://gitlab.com/%{project_path}/-/jobs/artifacts/%{commit_sha}/raw/backend/badge_eslint.svg?job=badges)](https://gitlab.com/%{project_path}/-/jobs/artifacts/%{commit_sha}/raw/backend/lint_ts_report.txt?job=lint-ts)
-[![Prettier Status](https://gitlab.com/%{project_path}/-/jobs/artifacts/%{commit_sha}/raw/backend/badge_prettier.svg?job=badges)](https://gitlab.com/%{project_path}/-/jobs/artifacts/%{commit_sha}/raw/backend/prettier_report.txt?job=prettier)
 
 This is a monorepo for a simple dApp, which is an implementation of a counter using the Massa environment.
 
