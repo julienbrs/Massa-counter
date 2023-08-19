@@ -1,5 +1,6 @@
 # Massa-test
 
+>⚠️ Stack and libraries used outdated
 
 This is a monorepo for a simple dApp, which is an implementation of a counter using the Massa environment.
 
